@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+     <meta charset="utf-8">
+    <title>Ellis Act Evictions in San Francisco</title>
+  
+<!--[if !(lt IE 8)]><!-->
+  
+    <meta name="description" content="Ellis Act Evictions in San Francisco Mapped by the Anti-Eviction Mapping Project.">
+      <meta name="author" content="Anti-Eviction Mapping Project">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
+    <![endif]-->
+    <!--Switch between the different themes changing the stylesheet below - light-theme.css |dark-theme.css -->
+    <link rel="stylesheet" href="css/light-theme.css">
+    <link rel="stylesheet" href="css/makeitresponsive.css">
+    <title>Ellis Act Evictions, San Francisco - Anti-Eviction Mapping Project</title>
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <script src="https://d3js.org/d3.v2.min.js?2.9.3"></script>
+    <script src="https://libs.cartocdn.com/cartodb.js/v2/cartodb.js"></script>
+    <script src="js/jquery.ui.core.js"></script>
+    <script src="js/jquery.ui.widget.js"></script>
+    <script src="js/jquery.ui.mouse.js"></script>
+    <script src="js/jquery.ui.slider.js"></script>
+    <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+    <script src="https://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+     <script src="js/new_ellis.js"></script>
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+<![endif]-->
+<style type="text/css">
+  #apDiv1 {
+	position:absolute;
+	width:300px;
+	height:200px;
+	z-index:21;
+	left: 3px;
+	top: 3px;
+	visibility: hidden;
+}
+  </style>
+
+  <style type="text/css">
+    html, body, #map {
+      position: relative;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    .toolbar {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      background-color: rgba(255, 255, 255, 0.8);
+      font: 30px "Helvetica Neue";
+
+      width: 100%;
+    }
+
+    #timeline{
+      margin-bottom: 40px;
+      width:100%;
+      float:left;
+    }
+
+    .timeline-element{
+      display:block;
+      float:left;
+     
+    }
+
+    #evictionCount{
+      font: 18px "Helvetica Neue";
+      height: 60px;
+      width: 400px;
+      display:block;
+      float:right;
+
+    }
+  
+    .tooltip{
+      color:#fff;
+      background-color:#000;
+      opacity:0.7;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: +1px;
+    }
+   
+    path {
+      fill: #f00;
+      fill-opacity: .5;
+      stroke: #fff;
+      stroke-width: 1.5px;
+    }
+
+     #counter{
+      color:#000000;
+      font-family: "Helvetica Narrow","Arial Narrow",Tahoma,Arial,Helvetica;
+      letter-spacing: -1px;
+      
+    }
+
+    #play{
+    width:30px;
+    height:30px;
+    cursor:pointer;
+     vertical-align: middle;
+     background-image:url('images/pause.png');
+     
+    }
+
+    #slider{
+      width: 65%;
+      height: 14px;
+      top:8px;
+   z-index: 20;
+   margin-left:5px;
+   
+    }
+
+    circle {
+      fill: #f30;
+      stroke-width: 0.5px;
+      fill-opacity: 0.8;
+      stroke: #FFF;
+  }
+
+  .center {
+    stroke-width: 8px;
+    stroke-opacity: 0.3;
+    fill: #000;
+    stroke: #F30;
+  }
+ 
+    </style>
+  </head>
+  <body>
+  <div id="apDiv1"><img src="ellis.jpg" width="300" height="200" alt="ellis act evictions"></div>
+	  
+<div id = "map"></div>
+<div class="sidepanel">
+   <div class="wrapper">
+        <p></p>
+        <h1>ELLIS ACT <br>
+<br>
+EVICTIONS</h1>
+         
+        <h3 id="runningTotal">  <div id="counter" style="color: #ff3300; font-size:80px; opacity:0.9 " > 0</div><br>San Francisco households forced out of their homes, <br>
+        <span id="date"> </span> </h3>
+         <div id = "timeline">
+      <div id="play" class="timeline-element"></div>
+       <div id="slider" class="timeline-element"></div>
+       
+     </div>
+  <p>  
+  <p><strong>The Ellis Act</strong> is a state law which says that landlords have the right to evict tenants in order to "go out of business." All units in the building must be cleared of all tenants, leading to mass displacement. Most often the Ellis Act is used to convert to condos or group-owned tenancy-in-common flats. Once a building becomes a condo it is exempt from rent control, regardless of the age of the building, and even if a unit owner subsequently rents to a long-term tenant.</p>
+  <p><span class="bold" style="font-weight: bold; font-size:15px">There is no limit to the number of times a building owner can “go out of business.” </span>Rent Board data shows some owners buying and Ellising multiple buildings over time. If these buyers do not want to be landlords, why are they buying buildings full of rental units? These Ellised buildings - now “out of business”- have also appeared as vacation rentals on sites like Airbnb. As we found <a href="https://antievictionmap.squarespace.com/s/Speculator-Loophole-2014.pdf">in a study with Tenants Together,</a> the majority of Ellis Act evictions transpire within the firs&nbsp; year of building purchases, showing that they are a tool of real estate speculators eager to flip buildings and profit.</p>
+
+        <p>    
+   
+   <p><a href="https://www.evictorbook.com/" target="new">Now with Evictorbook, you can look up addresses and evictors directly to learn more about eviction histories and corporate landlord portfolios.</a></p>
+<div class="context footer">
+       
+      <p>Map created by <a href="https://www.antievictionmap.com">Anti-Eviction Mapping Project</a></p>
+          <p>Powered by <a href="https://d3js.org/">D3</a>, <a href="https://leafletjs.com/">Leaflet</a> and <a href="https://cartodb.com/"> Carto</a></p>
+        </div>
+           </p>
+	 </p>
+      </div> 
+
+    <script type="text/javascript">
+
+   
+ 
+
+    </script>
+	  </div>
+  </body>
+</html>
