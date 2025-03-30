@@ -44,7 +44,7 @@ $(document).ready(function () {
       return Papa.parse(text, { header: true, skipEmptyLines: true }).data;
     })
     .then(rawData => {
-      return rawData.sort((a, b) => a.date_filed - b.date_filed);
+      return rawData.sort((a, b) => Date.parse(a.date_filed) - Date.parse(b.date_filed));
     })
     .then(sortedData => {
       return sortedData.filter((row) => row.lat && row.long)
@@ -191,7 +191,7 @@ $(document).ready(function () {
 
       function stopAnimation() {
         clearInterval(timer);
-        $('#play').css('background-image', 'url(../images/play.png)');
+        $('#play').css('background-image', 'url(images/play.png)');
         isPlaying = false;
       }
 
@@ -207,7 +207,7 @@ $(document).ready(function () {
         if (isPlaying) {
           stopAnimation();
         } else {
-          $('#play').css('background-image', 'url(../images/pause.png)');
+          $('#play').css('background-image', 'url(images/pause.png)');
           playAnimation();
         }
       }
